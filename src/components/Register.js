@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const validationSchema = Yup.object({
@@ -17,8 +18,8 @@ const validationSchema = Yup.object({
     .required('Please confirm your password'),
 });
 
-const Register = ({ onToggle }) => {
-  const { register, loading } = useAuth();
+const Register = () => {
+  const { register } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -32,9 +33,9 @@ const Register = ({ onToggle }) => {
   };
 
   return (
-    <div className="container mt-5">
-      <div className="row justify-content-center">
-        <div className="col-md-6">
+    <div className="container-fluid d-flex align-items-center justify-content-center min-vh-100">
+      <div className="row w-100 justify-content-center">
+        <div className="col-md-6 col-lg-4">
           <div className="card">
             <div className="card-header">
               <h4 className="mb-0">Register for Task Board</h4>
@@ -120,21 +121,24 @@ const Register = ({ onToggle }) => {
                     <button
                       type="submit"
                       className="btn btn-primary w-100"
-                      disabled={loading || isSubmitting}
+                      disabled={isSubmitting}
                     >
-                      {loading || isSubmitting ? 'Registering...' : 'Register'}
+                      {isSubmitting ? (
+                        <>
+                          <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                          Registering...
+                        </>
+                      ) : (
+                        'Register'
+                      )}
                     </button>
                   </Form>
                 )}
               </Formik>
               <div className="text-center mt-3">
-                <button
-                  type="button"
-                  className="btn btn-link"
-                  onClick={onToggle}
-                >
+                <Link to="/login" className="btn btn-link">
                   Already have an account? Login
-                </button>
+                </Link>
               </div>
             </div>
           </div>

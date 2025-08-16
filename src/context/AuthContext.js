@@ -24,36 +24,58 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
+  // const login = async (credentials) => {
+  //   try {
+  //     const response = await authAPI.login(credentials);
+  //     const { token: newToken, user: newUser } = response.data;
+      
+  //     localStorage.setItem('token', newToken);
+  //     localStorage.setItem('user', JSON.stringify(newUser));
+      
+  //     setToken(newToken);
+  //     setUser(newUser);
+  //     setIsAuthenticated(true);
+  //     setLoading(false);
+      
+  //     toast.success('Login successful!');
+  //     return { success: true };
+  //   } catch (error) {
+  //     const errorMessage = error.response?.data?.message || 'Login failed';
+  //     toast.error(errorMessage);
+  //     return {
+  //       success: false,
+  //       error: errorMessage,
+  //     };
+  //   }
+  // };
+
   const login = async (credentials) => {
-    try {
-      setLoading(true);
-      const response = await authAPI.login(credentials);
-      const { token: newToken, user: newUser } = response.data;
-      
-      localStorage.setItem('token', newToken);
-      localStorage.setItem('user', JSON.stringify(newUser));
-      
-      setToken(newToken);
-      setUser(newUser);
-      setIsAuthenticated(true);
-      setLoading(false);
-      
-      toast.success('Login successful!');
-      return { success: true };
-    } catch (error) {
-      setLoading(false);
-      const errorMessage = error.response?.data?.message || 'Login failed';
+  try {
+    const response = await authAPI.login(credentials);
+    const { token: newToken, user: newUser } = response.data;
+
+    localStorage.setItem('token', newToken);
+    localStorage.setItem('user', JSON.stringify(newUser));
+
+    setToken(newToken);
+    setUser(newUser);
+    setIsAuthenticated(true);
+
+    toast.success('Login successful!');
+    return { success: true };
+  } catch (error) {
+    const errorMessage = error.response?.data?.message || 'Login failed';
       toast.error(errorMessage);
-      return {
-        success: false,
-        error: errorMessage,
-      };
-    }
-  };
+    return {
+      success: false,
+      error: errorMessage,
+    };
+  }
+};
 
   const register = async (userData) => {
     try {
-      setLoading(true);
+      // setLoading(true);
       const response = await authAPI.register(userData);
       const { token: newToken, user: newUser } = response.data;
       
@@ -63,12 +85,12 @@ export const AuthProvider = ({ children }) => {
       setToken(newToken);
       setUser(newUser);
       setIsAuthenticated(true);
-      setLoading(false);
+      // setLoading(false);
       
       toast.success('Registration successful!');
       return { success: true };
     } catch (error) {
-      setLoading(false);
+      // setLoading(false);
       const errorMessage = error.response?.data?.message || 'Registration failed';
       toast.error(errorMessage);
       return {

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const validationSchema = Yup.object({
@@ -12,24 +13,53 @@ const validationSchema = Yup.object({
     .required('Password is required'),
 });
 
-const Login = ({ onToggle }) => {
-  const { login, loading } = useAuth();
+const Login = () => {
+  const { login } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
+  const [loginError, setLoginError] = useState('');
+
+  // const handleSubmit = async (values, { setSubmitting }) => {
+  //   try {
+  //     setLoginError(''); // Clear previous errors
+  //     const result = await login(values);
+  //     if (!result.success) {
+  //       setLoginError(result.error);
+  //     }
+  //   } catch (error) {
+  //     setLoginError('An unexpected error occurred. Please try again.');
+  //   } finally {
+  //     setSubmitting(false);
+  //   }
+  // };
 
   const handleSubmit = async (values, { setSubmitting }) => {
-    const result = await login(values);
-    setSubmitting(false);
+    try {
+      setLoginError('');
+      const result = await login(values);
+      if (result && !result.success) {
+        setLoginError(result.error || 'Login failed');
+      }
+    } catch (error) {
+      setLoginError('An unexpected error occurred. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
-    <div className="container mt-5">
-      <div className="row justify-content-center">
-        <div className="col-md-6">
+    <div className="container-fluid d-flex align-items-center justify-content-center min-vh-100">
+      <div className="row w-100 justify-content-center">
+        <div className="col-md-6 col-lg-4">
           <div className="card">
             <div className="card-header">
               <h4 className="mb-0">Login to Task Board</h4>
             </div>
             <div className="card-body">
+              {loginError && (
+                <div className="alert alert-danger" role="alert">
+                  {loginError}
+                </div>
+              )}
               <Formik
                 initialValues={{
                   email: '',
@@ -37,6 +67,7 @@ const Login = ({ onToggle }) => {
                 }}
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
+                enableReinitialize={false}
               >
                 {({ isSubmitting }) => (
                   <Form>
@@ -76,21 +107,24 @@ const Login = ({ onToggle }) => {
                     <button
                       type="submit"
                       className="btn btn-primary w-100"
-                      disabled={loading || isSubmitting}
+                      disabled={isSubmitting}
                     >
-                      {loading || isSubmitting ? 'Logging in...' : 'Login'}
+                      {isSubmitting ? (
+                        <>
+                          <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                          Logging in...
+                        </>
+                      ) : (
+                        'Login'
+                      )}
                     </button>
                   </Form>
                 )}
               </Formik>
               <div className="text-center mt-3">
-                <button
-                  type="button"
-                  className="btn btn-link"
-                  onClick={onToggle}
-                >
+                <Link to="/register" className="btn btn-link">
                   Don't have an account? Register
-                </button>
+                </Link>
               </div>
             </div>
           </div>
