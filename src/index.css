@@ -1,0 +1,241 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.task-card {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  margin-bottom: 10px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.task-card:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 1);
+}
+
+.priority-high {
+  border-left: 4px solid #dc3545;
+}
+
+.priority-medium {
+  border-left: 4px solid #ffc107;
+}
+
+.priority-low {
+  border-left: 4px solid #28a745;
+}
+
+.status-badge {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+.board-column {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  min-height: 500px;
+  padding: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.board-column:hover {
+  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.column-header {
+  font-weight: 600;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #dee2e6;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.drag-over {
+  background-color: #e3f2fd !important;
+  border: 2px dashed #2196f3 !important;
+}
+
+.tasks-container {
+  min-height: 400px;
+}
+
+.modal {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.card {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  border: none;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+}
+
+.card-header {
+  background: rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px 16px 0 0 !important;
+}
+
+.btn-primary {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.btn-primary:hover {
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
+}
+
+.form-control:focus {
+  border-color: #86b7fe;
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.badge {
+  font-weight: 500;
+}
+
+.dropdown-menu {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+}
+
+/* App container styling */
+.container, .container-fluid {
+  background: transparent;
+}
+
+/* Header styling */
+.app-header {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Modal improvements */
+.modal-content {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Description List Form Styles */
+dl {
+  margin-bottom: 0;
+}
+
+dt {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+  color: #495057;
+}
+
+dt:first-child {
+  margin-top: 0;
+}
+
+dd {
+  margin-bottom: 0.25rem;
+  margin-left: 0;
+}
+
+dd:last-of-type {
+  margin-bottom: 1rem;
+}
+
+dd .text-danger {
+  font-size: 0.875rem;
+  display: block;
+  margin-top: 0.25rem;
+}
+
+dd .form-control,
+dd .form-select {
+  margin-bottom: 0.25rem;
+}
+
+/* Input group styling */
+.input-group {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.input-group-text {
+  border-radius: 12px 0 0 12px;
+}
+
+.form-select {
+  border-radius: 0 12px 12px 0;
+}
+
+/* Password field with eye icon inside */
+.position-relative .form-control {
+  padding-right: 3rem;
+}
+
+.position-relative .btn {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.position-relative .btn:hover {
+  background: transparent !important;
+}
+
+.position-relative .btn:focus {
+  box-shadow: none !important;
+}
+
+.position-relative .btn i {
+  font-size: 1rem;
+  cursor: pointer;
+}
