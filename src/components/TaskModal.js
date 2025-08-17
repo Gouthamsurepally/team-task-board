@@ -18,8 +18,7 @@ const validationSchema = Yup.object({
     .oneOf(['Backlog', 'In Progress', 'Review', 'Done'], 'Invalid status')
     .required('Status is required'),
   assigneeId: Yup.string()
-    .required('Please select an assignee')
-    .test('not-empty', 'Please select an assignee', value => value && value.trim() !== ''),
+    .required('Please select an assignee'),
   dueDate: Yup.date()
     .required('Due date is required')
     .min(new Date().toISOString().split('T')[0], 'Due date cannot be in the past'),
@@ -89,9 +88,9 @@ const TaskModal = ({ task, users, onSave, onDelete, onClose }) => {
 
     try {
       await commentAPI.createComment(task._id, { body: newComment });
-      setNewComment('');
-      fetchComments();
-      toast.success('Comment added successfully');
+        setNewComment('');
+        fetchComments();
+        toast.success('Comment added successfully');
     } catch (error) {
       console.error('Error adding comment:', error);
       toast.error('Failed to add comment');
@@ -239,27 +238,18 @@ const TaskModal = ({ task, users, onSave, onDelete, onClose }) => {
 
                     <dt><label htmlFor="assigneeId">Assignee</label></dt>
                     <dd>
-                      <Field name="assigneeId">
-                        {({ field, form, meta }) => (
-                          <select
-                            {...field}
-                            id="assigneeId"
-                            className={`form-select ${meta.touched && meta.error ? 'is-invalid' : ''}`}
-                            value={field.value || ''}
-                            onChange={(e) => {
-                              const selectedValue = e.target.value;
-                              form.setFieldValue('assigneeId', selectedValue);
-                              form.setFieldTouched('assigneeId', true);
-                            }}
-                          >
-                            <option value="">Select Assignee</option>
-                            {users.map(user => (
-                              <option key={user._id} value={user._id}>
-                                {user.email.split('@')[0]}
-                              </option>
-                            ))}
-                          </select>
-                        )}
+                      <Field
+                        as="select"
+                        name="assigneeId"
+                        id="assigneeId"
+                        className="form-select"
+                      >
+                        <option value="">Select Assignee</option>
+                        {users.map(user => (
+                          <option key={user._id} value={user._id}>
+                            {user.email.split('@')[0]}
+                          </option>
+                        ))}
                       </Field>
                     </dd>
                     <dd><ErrorMessage name="assigneeId" component="span" className="text-danger" /></dd>
@@ -334,7 +324,7 @@ const TaskModal = ({ task, users, onSave, onDelete, onClose }) => {
                                 {formatDate(comment.created || comment.createdAt)}
                               </small>
                             </div>
-                            {(comment.authorId === user._id || comment.authorId === user?._id) && (
+                            {(comment.authorId?._id === user._id || comment.authorId === user._id) && (
                               <button
                                 type="button"
                                 className="btn btn-sm btn-outline-danger"
@@ -359,8 +349,14 @@ const TaskModal = ({ task, users, onSave, onDelete, onClose }) => {
                       placeholder="Add a comment..."
                       value={newComment}
                       onChange={(e) => setNewComment(e.target.value)}
+                      required
+                      minLength={1}
                     />
-                    <button type="submit" className="btn btn-outline-primary">
+                    <button 
+                      type="submit" 
+                      className="btn btn-outline-primary"
+                      disabled={!newComment.trim()}
+                    >
                       Add
                     </button>
                   </div>
