@@ -143,3 +143,22 @@ This application supports all modern browsers including:
 - Advanced filtering options
 - Team management features
 - Email notifications
+
+## UI Images
+
+-Register 
+![alt text](<Screenshot (74).png>)
+-Login
+![alt text](image.png)
+-Dashboard
+![alt text](image-1.png)
+-Create Task
+![alt text](image-2.png)
+-Update and Delete tasks and also add comment
+![alt text](image-3.png)
+-Get and delete comments
+![alt text](image-4.png)
+-Filters for assignees and priorities
+![alt text](image-5.png)
+-Logout and profile
+![alt text](image-6.png)
